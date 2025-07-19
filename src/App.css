@@ -1,0 +1,750 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+/* App Layout */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Controls the header size */
+.app-header {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2rem;          /* DECREASE this to make header shorter */
+  text-align: center;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Make header smaller */
+.app-header {
+  padding: 1rem;          /* Half the height */
+}
+
+/* Make title smaller */
+.app-header h1 {
+  font-size: 2rem;        /* From 2.5rem - smaller title */
+  margin-bottom: 0.25rem; /* Less space below title */
+  font-weight: 700;
+}
+
+.app-description {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.app-main {
+  flex: 1;
+  padding: 2rem;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (min-width: 767px) {
+  .app-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .app-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+/* Section Styles */
+section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 1rem;          /* From 1.5rem - smaller padding */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+section h2 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* Make the entire search section smaller */
+.search-section {
+  grid-column: 1 / -1;
+  /* Add these to shrink it: */
+  max-width: 500px;       /* Limit width */
+  margin: 0 auto;         /* Center it */
+}
+
+@media (min-width: 1024px) {
+  .search-section {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+  }
+}
+
+/* Search Component Styles */
+.search-component {
+  space-y: 0.5rem;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-input-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  flex: 1;
+  padding: 4px 4px;
+  border: 2px solid #e1e5e9;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  background: #f8f9fa;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.search-button {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.search-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.search-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Suggestions Styles */
+.suggestions-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.suggestions-header {
+  padding: 8px 16px;
+  background: #f8f9fa;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  border-bottom: 1px solid #e1e5e9;
+}
+
+.suggestions-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.suggestion-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.suggestion-item:hover,
+.suggestion-item.selected {
+  background: #f0f4ff;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.highlight {
+  background: #fff3cd;
+  font-weight: 600;
+  color: #856404;
+  padding: 1px 2px;
+  border-radius: 2px;
+}
+
+/* Search Result Styles */
+.search-result {
+  margin-top: 1rem;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.search-result.found {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.search-result.not-found {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Instructions Styles */
+.search-instructions {
+  margin-top: 0.5rem;     /* From 1.5rem - less space */
+  padding: 0.5rem;        /* From 1rem - smaller padding */
+  background: #f8f9fa;
+  border-radius: 4px;
+  border-left: 2px solid #667eea;
+  font-size: 0.8rem;      /* Smaller text */
+}
+
+.search-instructions h4 {
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.search-instructions ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.search-instructions li {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.25rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.search-instructions li:before {
+  content: "•";
+  color: #667eea;
+  position: absolute;
+  left: 0;
+}
+
+/* Word Manager Styles */
+/* Make word management section smaller */
+.word-manager {
+  /* Add these: */
+  font-size: 0.9rem;      /* Smaller overall text */
+}
+
+.word-manager h3 {
+  font-size: 1rem;        /* From 1.2rem - smaller heading */
+  margin-bottom: 0.5rem;  /* From 1rem - less space */
+  color: #333;
+}
+
+.message {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.word-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.action-group h4 {
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+.input-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.word-input {
+  flex: 1;
+  padding: 8px 10px;      /* From 10px 12px - smaller inputs */
+  border: 2px solid #e1e5e9;
+  border-radius: 6px;
+  font-size: 13px;        /* From 14px - smaller text */
+  transition: border-color 0.2s ease;
+}
+
+.word-input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.action-button {
+  padding: 8px 12px;      /* From 10px 16 */
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.add-button {
+  background: #28a745;
+  color: white;
+}
+
+.add-button:hover:not(:disabled) {
+  background: #218838;
+}
+
+.delete-button {
+  background: #dc3545;
+  color: white;
+}
+
+.delete-button:hover:not(:disabled) {
+  background: #c82333;
+}
+
+.sample-button {
+  background: #17a2b8;
+  color: white;
+}
+
+.sample-button:hover {
+  background: #138496;
+}
+
+.clear-button {
+  background: #6c757d;
+  color: white;
+}
+
+.clear-button:hover {
+  background: #5a6268;
+}
+
+.action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Trie Visualizer Styles */
+/* Resize the analysis section */
+.trie-visualizer {
+  /* Add these for smaller size: */
+  font-size: 0.9rem;      /* Smaller overall text */
+}
+
+.stats-container {
+  margin-bottom: 0.5rem;
+}
+
+.stats-container h4 {
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+/* Make statistics grid smaller */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;           /* From 0.5rem - closer together */
+}
+
+.stat-item {
+  padding: 6px 10px;      /* From 8px 12px - smaller boxes */
+  font-size: 0.8rem;      /* Smaller text in stats */
+  display: flex;
+  justify-content: space-between;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 3px solid #667eea;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: #333;
+}
+
+.visualization-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Make buttons smaller */
+.toggle-button {
+  padding: 6px 12px;      /* From 8px 16px - smaller buttons */
+  border: 2px solid #667eea;
+  background: white;
+  color: #667eea;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.8rem;      /* From 0.85rem - smaller text */
+}
+
+.toggle-button:hover {
+  background: #f0f4ff;
+}
+
+.toggle-button.active {
+  background: #667eea;
+  color: white;
+}
+
+/* Word List Styles */
+.word-list-container {
+  margin-top: 1rem;
+}
+
+.word-list-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filter-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #e1e5e9;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.sort-select {
+  padding: 8px 12px;
+  border: 1px solid #e1e5e9;
+  border-radius: 4px;
+  font-size: 14px;
+  background: white;
+}
+
+.word-count {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.word-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.word-item {
+  background: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #333;
+  border: 1px solid #e1e5e9;
+}
+
+/* Trie Structure Styles */
+.structure-section {
+  margin-top: 1.0rem;
+}
+
+.structure-note {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 1rem;
+  padding: 8px 12px;
+  background: #fff3cd;
+  border-radius: 4px;
+}
+
+.trie-structure {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.trie-node {
+  margin-left: 1rem;
+}
+
+.node-content {
+  padding: 2px 4px;
+  margin: 2px 0;
+  border-radius: 3px;
+}
+
+.node-content.end-word {
+  background: #c3e6cb;
+  color: #155724;
+  font-weight: 600;
+}
+
+.node-prefix {
+  font-family: monospace;
+}
+
+.word-marker {
+  color: #28a745;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+.node-children {
+  margin-left: 1rem;
+  border-left: 1px solid #dee2e6;
+  padding-left: 0.5rem;
+}
+
+.truncated {
+  color: #6c757d;
+  font-style: italic;
+}
+
+.empty-message {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+/* Performance Info Styles */
+.performance-info {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #e8f4f8;
+  border-radius: 8px;
+  border-left: 4px solid #17a2b8;
+}
+
+.performance-info h4 {
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+.performance-info ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.performance-info li {
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+  position: relative;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.performance-info li:before {
+  content: "⚡";
+  position: absolute;
+  left: 0;
+}
+
+/* Footer Styles */
+.app-footer {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.learning-resources h3 {
+  color: white;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .resources-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .resources-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.resource-item {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.resource-item h4 {
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.resource-item p {
+  color: #666;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+  .app-header {
+    padding: 1rem;
+  }
+  
+  .app-header h1 {
+    font-size: 2rem;
+  }
+  
+  .app-main {
+    padding: 1rem;
+  }
+  
+  .search-input-wrapper {
+    flex-direction: column;
+  }
+  
+  .input-group {
+    flex-direction: column;
+  }
+  
+  .button-group {
+    flex-direction: column;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .visualization-controls {
+    flex-direction: column;
+  }
+
+  .trie-structure {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    max-height: 400px;
+  }
+
+  .trie-node {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .trie-node:before {
+    display: none;
+  }
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+} 
